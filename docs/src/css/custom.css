@@ -1,0 +1,297 @@
+/**
+ * Blockia Pay Docusaurus Theme
+ */
+
+/* Blockia Brand Colors */
+:root {
+  --blockia-primary: #4c0182;
+  --blockia-primary-light: #7c86ff;
+  --blockia-secondary: #4cd9c4;
+  --blockia-accent: #a0f1e5;
+  --blockia-gray-50: #fafbfc;
+  --blockia-gray-100: #f5f7fa;
+  --blockia-gray-200: #e8ecf2;
+  --blockia-gray-300: #d1d9e6;
+  --blockia-gray-400: #b4c1d9;
+  --blockia-gray-500: #8a9bae;
+  --blockia-gray-600: #667085;
+  --blockia-gray-700: #475467;
+  --blockia-gray-800: #344054;
+  --blockia-gray-900: #1d2939;
+}
+
+/* Override Docusaurus colors with Blockia theme */
+:root {
+  --ifm-color-primary: var(--blockia-primary);
+  --ifm-color-primary-dark: #381f7d;
+  --ifm-color-primary-darker: #2a0763;
+  --ifm-color-primary-darkest: #1a0442;
+  --ifm-color-primary-light: var(--blockia-primary-light);
+  --ifm-color-primary-lighter: #8e96ff;
+  --ifm-color-primary-lightest: #b8bfff;
+
+  --ifm-color-secondary: var(--blockia-secondary);
+  --ifm-color-success: #10b981;
+  --ifm-color-info: #3b82f6;
+  --ifm-color-warning: #f59e0b;
+  --ifm-color-danger: #ef4444;
+
+  /* Typography */
+  --ifm-font-family-base:
+    'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --ifm-heading-font-weight: 600;
+  --ifm-font-weight-semibold: 500;
+
+  /* Light theme */
+  --ifm-background-color: #ffffff;
+  --ifm-color-emphasis-0: #ffffff;
+  --ifm-color-emphasis-100: var(--blockia-gray-50);
+  --ifm-color-emphasis-200: var(--blockia-gray-100);
+  --ifm-color-emphasis-300: var(--blockia-gray-200);
+  --ifm-color-emphasis-400: var(--blockia-gray-300);
+  --ifm-color-emphasis-500: var(--blockia-gray-400);
+  --ifm-color-emphasis-600: var(--blockia-gray-500);
+  --ifm-color-emphasis-700: var(--blockia-gray-600);
+  --ifm-color-emphasis-800: var(--blockia-gray-700);
+  --ifm-color-emphasis-900: var(--blockia-gray-800);
+  --ifm-color-emphasis-1000: var(--blockia-gray-900);
+
+  /* Code styling */
+  --ifm-code-font-size: 95%;
+  --docusaurus-highlighted-code-line-bg: rgba(76, 1, 130, 0.1);
+}
+
+body {
+  font-family: var(--ifm-font-family-base);
+  background-color: var(--ifm-background-color);
+  color: var(--blockia-gray-800);
+}
+
+/* Enhanced navbar with Blockia branding */
+.navbar {
+  background-color: #ffffff;
+  border-bottom: 1px solid var(--blockia-gray-200);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.navbar__title {
+  color: var(--blockia-primary);
+  font-weight: 700;
+}
+
+.navbar__link {
+  color: var(--blockia-gray-700);
+  font-weight: 500;
+}
+
+.navbar__link:hover {
+  color: var(--blockia-primary);
+}
+
+.navbar__link--active {
+  color: var(--blockia-primary);
+  font-weight: 600;
+}
+
+/* Cards styling */
+.card {
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--blockia-gray-200);
+  transition: box-shadow 0.2s ease;
+}
+
+.card:hover {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Button styling */
+.button {
+  border-radius: 6px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  font-size: 0.875rem;
+  text-decoration: none;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.button--primary {
+  background-color: #ffffff;
+  border: 2px solid #ffffff;
+  color: var(--blockia-primary);
+  font-weight: 600;
+}
+
+.button--primary:hover {
+  background-color: rgba(255, 255, 255, 0.9);
+  border-color: rgba(255, 255, 255, 0.9);
+  color: var(--blockia-primary);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.button--secondary {
+  background-color: var(--blockia-secondary);
+  border-color: var(--blockia-secondary);
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.button--secondary:hover {
+  background-color: #1b998b;
+  border-color: #1b998b;
+  color: #ffffff;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(76, 217, 196, 0.3);
+}
+
+/* Enhanced code blocks with Blockia theming */
+.codeBlockContainer {
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--blockia-gray-200);
+  background-color: var(--blockia-gray-50);
+}
+
+.codeBlockTitle {
+  background-color: var(--blockia-gray-100);
+  border-bottom: 1px solid var(--blockia-gray-200);
+  color: var(--blockia-gray-700);
+  font-weight: 600;
+}
+
+.codeBlockContent {
+  background-color: var(--blockia-gray-50);
+}
+
+/* Code block copy button */
+.codeBlockContent button {
+  background-color: var(--blockia-primary);
+  border-color: var(--blockia-primary);
+  color: white;
+}
+
+.codeBlockContent button:hover {
+  background-color: var(--blockia-primary-light);
+  border-color: var(--blockia-primary-light);
+}
+
+/* Sidebar */
+.menu {
+  border-right: 1px solid var(--blockia-gray-200);
+}
+
+.menu__link {
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  color: var(--blockia-gray-600);
+}
+
+.menu__link:hover {
+  background-color: var(--blockia-gray-100);
+  color: var(--blockia-primary);
+}
+
+.menu__link--active {
+  background-color: rgba(76, 1, 130, 0.1);
+  color: var(--blockia-primary);
+  font-weight: 600;
+}
+
+/* Sidebar toggle button -  Blockia styling */
+.menu__button {
+  color: var(--blockia-gray-600);
+  background-color: transparent;
+  border: 1px solid var(--blockia-gray-200);
+  padding: 0.5rem;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.menu__button:hover {
+  color: var(--blockia-primary);
+  background-color: var(--blockia-gray-50);
+  border-color: var(--blockia-primary);
+}
+
+.menu__button:focus {
+  outline: 2px solid var(--blockia-primary);
+  outline-offset: 2px;
+}
+
+/* Footer */
+.footer {
+  background-color: var(--blockia-gray-900);
+  color: var(--blockia-gray-300);
+  border-top: 1px solid var(--blockia-gray-700);
+}
+
+.footer__link-item a:hover {
+  color: var(--blockia-secondary);
+}
+
+/* Alerts */
+.alert {
+  border-radius: 8px;
+  border: 1px solid;
+}
+
+.alert--primary {
+  border-color: rgba(76, 1, 130, 0.2);
+  background-color: rgba(76, 1, 130, 0.05);
+}
+
+.alert--success {
+  border-color: rgba(16, 185, 129, 0.2);
+  background-color: rgba(16, 185, 129, 0.05);
+}
+
+.alert--warning {
+  border-color: rgba(245, 158, 11, 0.2);
+  background-color: rgba(245, 158, 11, 0.05);
+}
+
+.alert--danger {
+  border-color: rgba(239, 68, 68, 0.2);
+  background-color: rgba(239, 68, 68, 0.05);
+}
+
+/* Table of contents */
+.table-of-contents {
+  border-left: 3px solid var(--blockia-primary);
+  background-color: var(--blockia-gray-50);
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+.table-of-contents__link {
+  color: var(--blockia-gray-700);
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.table-of-contents__link:hover {
+  color: var(--blockia-primary);
+}
+
+.table-of-contents__link--active {
+  color: var(--blockia-primary);
+  font-weight: 600;
+}
+
+/* Search */
+.search-input {
+  border-radius: 6px;
+  border: 2px solid var(--blockia-gray-200);
+  transition: border-color 0.2s ease;
+}
+
+.search-input:focus {
+  border-color: var(--blockia-primary);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(76, 1, 130, 0.1);
+}
