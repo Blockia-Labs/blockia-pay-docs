@@ -22,7 +22,7 @@ currency Base Sepolia network.
 
 ## Example Queries
 
-- Hi, please get my account's balance..
+- Hi, please tell me my account balance..
 - Hi, please pay this payment link:
   http://localhost:4000/x402/NiXLmM2SCwXGJ47m0ARVEhl3ii6OJyWx
 
