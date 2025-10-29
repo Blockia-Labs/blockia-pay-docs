@@ -132,7 +132,7 @@ pre-created Blockia payment link.
 flowchart LR
     start((Click))
     getPaymentLinkInfo([Blockia Pay: Get Payment Link Info])
-    makePayment([Blockia Pay: Make a Payme])
+    makePayment([Blockia Pay: Make a Payment])
     start--> getPaymentLinkInfo
     getPaymentLinkInfo --> makePayment
 ```
