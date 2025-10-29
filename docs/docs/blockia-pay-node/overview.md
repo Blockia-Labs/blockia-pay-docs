@@ -60,12 +60,12 @@ transactions through the Blockia Agent SDK.
 The Blockia Pay Node currently supports the following operations:
 
 | Operation             | Description                                                                              |
-| --------------------- | ---------------------------------------------------------------------------------------- |
+|-----------------------| ---------------------------------------------------------------------------------------- |
 | Make Payment          | Executes a payment using the Blockia Agent SDK.                                          |
-| Check Balance         | Retrieves the current wallet balance on the configured blockchain.                       |
+| Get Balance           | Retrieves the current wallet balance on the configured blockchain.                       |
 | Get Payment Link Info | Retrieves and displays details of an existing payment link and the payment requirements. |
 
-### Check Balance Operation
+### Get Balance Operation
 
 #### Description
 
@@ -128,11 +128,13 @@ pre-created Blockia payment link.
 
 ### 🟢 Simple Payment Workflow
 
-```
-graph LR
-A[Start] --> B[Blockia Pay: Get Payment Link Info]
-B --> C[Blockia Pay: Make Payment]
-C --> D[End]
+```mermaid
+flowchart LR
+    start((Click))
+    getPaymentLinkInfo([Blockia Pay: Get Payment Link Info])
+    makePayment([Blockia Pay: Make a Payme])
+    start--> getPaymentLinkInfo
+    getPaymentLinkInfo --> makePayment
 ```
 
 Automates a payment by first retrieving the payment link requirements and then
@@ -140,13 +142,20 @@ executing it.
 
 ### 🤖 Automated Fetching Workflow
 
-```
-graph LR
-A[Trigger (Webhook)] --> B[Blockia Pay: Check Balance]
-B --> C[Blockia Pay: Get Payment Link Info]
-C --> D[Blockia Pay: Make a Payment]
-D --> E[Slack: Send Success Message]
-D --> F[Slack: Send Error Message]
+```mermaid
+flowchart LR
+    webhook((Webhook))
+    getBalance([BlockiaPay: Get Balance])
+    getPaymentLinkInfo([Blockia Pay: Get Payment Link Info])
+    makePayment([Blockia Pay: Make a Payment])
+    success([Slack: Send success message])
+    error([Slack: Send error message])
+    
+    webhook--> getBalance
+    getBalance --> getPaymentLinkInfo
+    getPaymentLinkInfo --> makePayment
+    makePayment -->|Yes| success
+    makePayment --> |No| error
 ```
 
 Automatically executes payments when new payment links are received from a
@@ -154,12 +163,21 @@ webhook or API.
 
 ### 🧩 Multi-Step Workflow
 
-```
-graph LR
-A[Start] --> B[Blockia Pay: Check Balance]
-B -->|Sufficient| C[Blockia Pay: Get Payment Link Info]
-C --> D[Blockia Pay: Make a Payment]
-B -->|Insufficient| E[Slack: Notify Low Balance]
+```mermaid
+flowchart LR
+    start((Click))
+    getBalance([Blockia Pay: Get Balance])
+    checkSufficient{{AI Agent: Check for sufficient funds}}
+    getPaymentLinkInfo([Blockia Pay: Get Payment Link Info])
+    makePayment([Blockia Pay: Make a Payment])
+    error([Slack: Notify Low Balance])
+
+    start --> getBalance
+    getBalance --> getPaymentLinkInfo
+    getPaymentLinkInfo --> checkSufficient
+    checkSufficient -->|Yes| makePayment
+    checkSufficient --> |No| error
+
 ```
 
 Checks wallet balance before executing a payment and alerts if funds are
@@ -167,10 +185,17 @@ insufficient.
 
 ### ⚠️ Error Handling Workflow
 
-```
-graph LR
-A[Start] --> B[Blockia Pay: Make Payment]
-B -->|Error| C[Slack: Send Alert]
+```mermaid
+flowchart LR
+    start((Click))
+    getPaymentLinkInfo([Blockia Pay: Get Payment Link Info])
+    makePayment([Blockia Pay: Make a Payment])
+    success([Slack: Send transaction hash])
+    error([Slack: Send error message])
+    start--> getPaymentLinkInfo
+    getPaymentLinkInfo --> makePayment
+    makePayment --> |Yes| success
+    makePayment --> |No| error
 ```
 
 Catches and reports transaction errors to a monitoring or alerting system.
