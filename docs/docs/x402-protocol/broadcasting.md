@@ -30,18 +30,11 @@ address, ensuring:
 If broadcasting fails, the relayer returns a detailed error to the backend,
 which is surfaced to the API client. Common errors include:
 
-- `RELAY_BALANCE_LOW`: Relayer has insufficient funds
-- `CONTRACT_REVERTED`: Smart contract rejected the transfer
-- `NETWORK_ERROR`: RPC/network issues
+- Relayer has insufficient funds
+- Smart contract rejected the transfer
+- RPC/network issues
 
 ## Monitoring & Observability
 
 - All broadcast attempts are logged with status and tx hash
 - Relayer balance and health are monitored
-- Failed transactions trigger alerts for investigation
-
-## Future Enhancements
-
-- Multi-chain relayer support
-- Batch transaction broadcasting
-- Automated relayer failover and redundancy

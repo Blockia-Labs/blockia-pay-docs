@@ -38,127 +38,45 @@ X402 is a payment protocol that combines:
 - Structured API responses
 - Automated payment processing
 
-### 🌐 Cross-Chain Support
-
-- Multiple blockchain networks
-- Unified payment interface
-- Network abstraction
-
 ## Protocol Flow
 
-### 1. Fetch Payment Requirements
+```mermaid
+sequenceDiagram
+    participant Client as AI Agent / Wallet
+    participant Server as Blockia Pay API
+    participant Blockchain as EVM Network
 
-**GET `/v1/x402/{linkId}`**
+    Client->>Server: GET /v1/x402/{linkId}
+    Server-->>Client: HTTP 402 + payment requirements (JSON)
 
-- Returns HTTP 402 with a machine-readable JSON body describing accepted payment
-  requirements for the link.
-- Example response:
+    Client->>Client: Prepare ERC-3009 payload<br/>Sign authorization (EIP-712)
+    Client->>Server: POST /v1/x402/{linkId}/pay<br/>with signed payload
 
-```json
-{
-  "x402Version": 1,
-  "accepts": [
-    {
-      "scheme": "evm-erc3009",
-      "network": "base",
-      "maxAmountRequired": 100,
-      "resource": "https://api.blockia.pay/v1/payments/x402",
-      "description": "Payment for services",
-      "mimeType": "application/json",
-      "payTo": "0x742d35Cc6634C0532925a3b844Bc454e4438f55e",
-      "maxTimeoutSeconds": 360,
-      "asset": "USDC"
-    }
-  ]
-}
+    Server->>Server: Validate signature, nonce, and rules
+    Server->>Blockchain: Broadcast authorized transfer
+    Blockchain-->>Server: Transaction hash and confirmation
+
+    Server-->>Client: Payment success response<br/>{ txHash, status, details }
 ```
 
-### 2. Submit Payment Payload
-
-**POST `/v1/x402/{linkId}/pay`**
-
-- Submit a signed ERC-3009 payment payload matching the requirements.
-- Example request:
-
-```json
-{
-  "x402Version": 1,
-  "scheme": "evm-erc3009",
-  "network": "base",
-  "payload": {
-    "from": "0x...",
-    "to": "0x742d35Cc6634C0532925a3b844Bc454e4438f55e",
-    "value": "100",
-    "nonce": "0x...",
-    "validAfter": "1699123456",
-    "validBefore": "1699133456",
-    "v": 28,
-    "r": "0x...",
-    "s": "0x..."
-  }
-}
-```
-
-### 3. Settlement
-
-- The server validates the payload, checks signature, nonce, and business rules,
-  then broadcasts the transfer on-chain.
-- On success, returns transaction hash and settlement details.
-
-## Protocol Versions
-
-### X402 v1
-
-- Basic ERC-3009 support
-- Single network payments
-- Simple payload structure
-
-### Future Versions
-
-- Multi-network payments
-- Batch transactions
-- Advanced authorization schemes
-
-## Security Features
-
-### Signature Validation
-
-- ECDSA signature verification
-- Nonce replay protection
-- Timestamp validation
-
-### Amount Limits
-
-- Configurable maximum amounts
-- Timeout protection
-- Rate limiting
-
-### Network Security
-
-- Blockchain consensus security
-- Smart contract audits
-- Multi-signature controls
-
-## Integration Examples
-
-### For AI Agents
+## Integration Examples For AI Agents
 
 ```typescript
-import { BlockiaAgent } from '@blockia-pay/blockia-agent-sdk';
+import { BlockiaAgent } from "@blockia-pay/blockia-agent-sdk";
 
 const agent = new BlockiaAgent({
-  privateKey: '0x...',
-  apiUrl: 'http://localhost:3000/',
+  privateKey: "0x...",
+  apiUrl: "http://localhost:3000/",
   chainId: 84532,
 });
 
 console.log(`🔑 Signer address: ${agent.getSignerAddress()}`);
-console.log('');
+console.log("");
 
-console.log('📡 Fetching payment requirements...');
+console.log("📡 Fetching payment requirements...");
 const requirementsResponse = await agent.getPaymentLinkInfo(linkId);
 
-console.log('🚀 Processing payment...');
+console.log("🚀 Processing payment...");
 const result = await agent.makePayment(requirementsResponse.accepts);
 ```
 
@@ -183,7 +101,6 @@ const result = await agent.makePayment(requirementsResponse.accepts);
 - `403 Forbidden`: Unauthorized or invalid payment attempt
 - `409 Conflict`: Nonce already used or duplicate payment
 - `404 Not Found`: Link does not exist
-- `422 Unprocessable Entity`: Business rule violation (amount, address, etc.)
 - `500 Internal Server Error`: Server-side error
 
 Error responses include a machine-readable `error` field and message.

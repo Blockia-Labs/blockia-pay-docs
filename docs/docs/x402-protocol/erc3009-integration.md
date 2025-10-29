@@ -2,9 +2,6 @@
 sidebar_position: 2
 ---
 
-gasless, secure token transfers. This integration allows payers to authorize
-payments off-chain while ensuring on-chain settlement.
-
 # ERC-3009 Integration
 
 Blockia Pay's X402 Protocol leverages the ERC-3009 (Authorized Transfer)
@@ -23,33 +20,39 @@ ERC-3009 is an Ethereum standard for authorized token transfers that enables:
 
 ## How ERC-3009 Works in X402
 
-### 1. Authorization Flow
+```mermaid
+sequenceDiagram
+    participant Payer
+    participant API as Blockia API / Relayer
+    participant Chain as Blockchain (USDC Contract)
 
-1. **Payer** requests payment requirements from the API
-   (`GET /v1/x402/{linkId}`)
-2. **Payer** creates and signs an ERC-3009 payload off-chain (EIP-712 signature)
-3. **Payer** submits the signed payload to the API
-   (`POST /v1/x402/{linkId}/pay`)
-4. **Relayer** (Blockia backend) validates the signature, nonce, and business
-   rules
-5. **Relayer** broadcasts the transferWithAuthorization to the USDC contract
-6. **Blockchain** settles the transfer; relayer returns the transaction hash
+    Payer->>API: GET /v1/x402/{linkId}
+    API-->>Payer: 402 Payment Requirements (JSON)
 
-### 2. Signature Creation
+    Payer->>Payer: Create & sign ERC-3009 payload<br/>(EIP-712 signature)
+    Payer->>API: POST /v1/x402/{linkId}/pay with payload
+
+    API->>API: Validate signature, nonce, rules
+    API->>Chain: transferWithAuthorization(from, to, value,…)
+    Chain-->>API: txHash + confirmation
+    API-->>Payer: Payment success (txHash, status)
+```
+
+## Payload Structure
 
 The ERC-3009 payload must match the following structure:
 
 ```typescript
 interface ERC3009PaymentPayload {
-  from: string; // Payer's address
-  to: string; // Merchant's address
-  value: string; // Amount in smallest unit (as string)
-  nonce: string; // Unique 32-byte hex nonce
-  validAfter: string; // Unix timestamp (seconds)
-  validBefore: string; // Unix timestamp (seconds)
-  v: number; // Signature recovery id
-  r: string; // Signature r value
-  s: string; // Signature s value
+  from: string; // Payer address
+  to: string; // Merchant address
+  value: string; // Amount in smallest unit
+  nonce: string; // Unique 32-byte hex
+  validAfter: string; // Unix timestamp (s)
+  validBefore: string; // Unix timestamp (s)
+  v: number;
+  r: string;
+  s: string;
 }
 ```
 
@@ -73,9 +76,7 @@ function transferWithAuthorization(
 ) external;
 ```
 
-### Relayer Architecture
-
-The Blockia relayer:
+### Relayer Responsibilities
 
 - Validates the ERC-3009 signature (EIP-712)
 - Checks nonce uniqueness (no replay)
@@ -103,73 +104,3 @@ The Blockia relayer:
 ### Amount Validation
 
 - Must match payment link requirements (no over/underpayment)
-
-## Error Handling
-
-Common error responses:
-
-- `INVALID_SIGNATURE`: Signature verification failed
-- `NONCE_USED`: Nonce already used
-- `EXPIRED_TRANSFER`: Transfer validity period expired
-- `AMOUNT_EXCEEDS_MAXIMUM`: Amount exceeds allowed
-- `INVALID_PAYLOAD_STRUCTURE`: Payload does not match schema
-
-## Testing
-
-### Test Environment
-
-- Base Sepolia testnet
-- Test USDC contracts
-- Mock relayer for local development
-
-### Integration Tests
-
-```typescript
-describe('ERC-3009 Integration', () => {
-  it('should validate correct signatures', async () => {
-    const payload = createValidPayload();
-    const result = await verifier.verify(payload);
-    expect(result.valid).toBe(true);
-  });
-
-  it('should reject invalid signatures', async () => {
-    const payload = createInvalidPayload();
-    const result = await verifier.verify(payload);
-    expect(result.valid).toBe(false);
-  });
-});
-```
-
-## Performance & Monitoring
-
-### Batch Processing
-
-- (Planned) Multiple transfers in a single transaction
-
-### Caching
-
-- Nonce and signature validation caching
-- Rate limiting for spam protection
-
-### Monitoring
-
-- Transfer success rates
-- Gas usage and error tracking
-
-## Future Enhancements
-
-### Multi-Token Support
-
-- Support for additional ERC-3009 tokens
-- Custom token integration
-
-### Advanced Features
-
-- Conditional transfers
-- Time-locked payments
-- Multi-signature authorization
-
-### Cross-Chain Expansion
-
-- Bridge integration
-- Multi-chain nonce management

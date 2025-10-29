@@ -20,7 +20,6 @@ const sidebars: SidebarsConfig = {
       label: 'Blockia Pay',
       items: [
         'blockia-pay/overview',
-        'blockia-pay/getting-started',
         'blockia-pay/smart-wallets',
         'blockia-pay/payment-links',
         'blockia-pay/dashboard',

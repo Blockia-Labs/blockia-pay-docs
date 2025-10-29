@@ -16,35 +16,19 @@ The dashboard is your central hub for:
 - Tracking financial metrics
 - Exporting data for accounting
 
-## Key Sections
+## Key Features
 
-### Payment Overview
+### Payments & Links
 
-- Recent payments with status indicators
-- Total volume and transaction counts
-- Pending vs. completed payments
-- Real-time updates via WebSocket
-
-### Link Management
-
-- Create new payment links
-- View active and expired links
-- Edit link details
-- Cancel or resend links
+- Generate and share payment links instantly
+- Monitor payment statuses in real time
+- View recent transactions and total volume
 
 ### Transaction History
 
-- Complete payment ledger
-- Filter by date, amount, or status
-- Search functionality
+- View transactions history
 - Detailed transaction information
-
-### Analytics & Reports
-
-- Payment trends over time
-- Conversion funnel metrics
-- Geographic payment distribution
-- Revenue projections
+- Follow transaction links and check details on blockchain
 
 ## Creating Payment Links
 
@@ -54,13 +38,6 @@ The dashboard is your central hub for:
 2. Enter amount and currency
 3. Add description
 4. Generate link instantly
-
-### Advanced Options
-
-- Custom expiration dates
-- Multiple currency support
-- Invoice attachments
-- Client notifications
 
 ## Payment Tracking
 
@@ -94,44 +71,26 @@ The dashboard is your central hub for:
 
 ## Account Settings
 
-### Profile Management
-
-- Business information
-- Contact details
-- Notification preferences
-
 ### Wallet Settings
 
 - View wallet address
-- Export private keys (with warnings)
-- Recovery options
 - Multi-device access
 
 ### Security Settings
 
-- Change passkeys
-- Enable 2FA
+- Secure passkey-based login
+- Secure Bearer token management
 - API key management
 - Session management
 
 ## Mobile Experience
 
-The dashboard is fully responsive and works seamlessly on:
+The dashboard is responsive and works seamlessly on:
 
 - Desktop computers
 - Tablets
 - Mobile phones
 - All modern browsers
-
-## API Integration
-
-### REST API
-
-Full programmatic access to:
-
-- Create payment links
-- Retrieve transaction data
-- Manage account settings
 
 ## Security Features
 
@@ -152,20 +111,6 @@ Full programmatic access to:
 - GDPR compliance
 - Financial data protection
 - Audit trails
-
-## Performance Monitoring
-
-### System Health
-
-- API response times
-- Blockchain confirmation times
-- Error rates and uptime
-
-### Business Metrics
-
-- Payment success rates
-- User engagement
-- Revenue growth
 
 ## Getting Started
 

@@ -22,7 +22,7 @@ function HomepageHeader() {
             <div className={styles.heroButtons}>
               <Link
                 className="button button--primary button--lg"
-                to="/docs/blockia-pay/getting-started"
+                to="/docs/blockia-pay/overview"
               >
                 Get Started 🚀
               </Link>
@@ -134,7 +134,7 @@ function CTASection() {
           <div className={styles.ctaButtons}>
             <Link
               className="button button--primary button--lg"
-              to="/docs/blockia-pay/getting-started"
+              to="/docs/blockia-pay/overview"
             >
               Start Building 🚀
             </Link>

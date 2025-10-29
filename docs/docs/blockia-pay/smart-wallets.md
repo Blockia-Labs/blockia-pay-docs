@@ -80,7 +80,7 @@ Withdraw funds to any compatible wallet address at any time.
 
 - Device-based recovery
 - Social recovery (future feature)
-- Backup codes for account restoration
+- Backup codes for account restoration (future feature)
 
 ## Technical Details
 

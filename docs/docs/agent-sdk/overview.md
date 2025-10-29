@@ -31,9 +31,9 @@ npm install @blockia-pay/blockia-agent-sdk
 import { BlockiaAgent } from '@blockia-pay/blockia-agent-sdk';
 
 const agent = new BlockiaAgent({
-  privateKey: '0xYOUR_PRIVATE_KEY',
   apiUrl: 'https://api.blockia.pay/v1',
-  chainId: 84532, // Base Sepolia
+  chainId: 84532, // Base or Base Sepolia for testing
+  privateKey: '0xYOUR_PRIVATE_KEY',
 });
 
 // Fetch payment requirements for a link
@@ -59,9 +59,9 @@ if (result.success) {
 new BlockiaAgent(config: BlockiaAgentConfig)
 ```
 
-- `privateKey`: Signer private key (hex string)
 - `apiUrl`: Blockia API base URL
 - `chainId`: EVM chain ID (e.g., 84532 for Base Sepolia)
+- `privateKey`: Signer private key (hex string)
 
 #### Methods
 
@@ -79,30 +79,12 @@ new BlockiaAgent(config: BlockiaAgentConfig)
 - `selectPaymentRequirement(requirements, options): Promise<PaymentRequirements>`
   — Select a requirement by network, asset, or scheme
 
-See
-[types.ts](https://github.com/Blockia-Labs/blockia-pay/blob/main/packages/blockia-agent-sdk/src/types.ts)
-for all type definitions.
+## Advanced Usage
 
-## Example: Simple Payment Script
-
-```typescript
-import { BlockiaAgent } from '@blockia-pay/blockia-agent-sdk';
-
-const agent = new BlockiaAgent({
-  privateKey: '0xYOUR_PRIVATE_KEY',
-  apiUrl: 'http://localhost:3000/',
-  chainId: 84532,
-});
-
-const requirementsResponse = await agent.getPaymentLinkInfo('LINK_ID');
-const result = await agent.makePayment(requirementsResponse.accepts);
-
-if (result.success) {
-  console.log('Payment successful! Tx:', result.txHash);
-} else {
-  console.error('Payment failed:', result.error);
-}
-```
+- Use `createPaymentPayload()` and `submitPayment()` for custom flows
+- Use `selectPaymentRequirement()` to filter requirements by network, asset, or
+  scheme
+- Supports custom signer implementations via the `ISigner` interface
 
 ## Error Handling
 
@@ -112,19 +94,7 @@ All errors extend `BlockiaError`:
 - `NetworkError`: API/network issues
 - `PaymentError`: Payment failed
 
-## Advanced Usage
-
-- Use `createPaymentPayload()` and `submitPayment()` for custom flows
-- Use `selectPaymentRequirement()` to filter requirements by network, asset, or
-  scheme
-- Supports custom signer implementations via the `ISigner` interface
-
 ## Supported Networks
 
 - Base Mainnet (8453)
 - Base Sepolia (84532)
-- See `chain-config.ts` for all supported EVM networks
-
-## Resources
-
-- [GitHub: blockia-pay/blockia-agent-sdk](https://www.npmjs.com/package/@blockia-pay/blockia-agent-sdk)

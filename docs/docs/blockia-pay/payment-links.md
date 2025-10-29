@@ -16,7 +16,8 @@ Generate a payment link through the dashboard or API with:
 
 - Amount and currency
 - Payment description
-- Optional expiration date
+- Merchant name (optional)
+- Expiration date (optional)
 
 ### 2. Share the Link
 
@@ -68,6 +69,7 @@ The unique ID encodes:
 2. Connect wallet (MetaMask, WalletConnect)
 3. Confirm transaction
 4. Payment complete
+5. Done!
 
 ### For New Users
 
@@ -116,21 +118,6 @@ Payments must match the exact amount specified in the link.
 ### Merchant Verification
 
 Links are cryptographically signed to prevent tampering.
-
-## Analytics & Tracking
-
-### Payment Events
-
-- Link created
-- Link viewed
-- Payment initiated
-- Payment confirmed
-
-### Conversion Metrics
-
-- Click-through rates
-- Completion rates
-- Average payment time
 
 ## Integration Options
 
