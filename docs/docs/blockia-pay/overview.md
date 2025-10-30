@@ -75,8 +75,3 @@ Blockia Pay is built on:
   authentication
 - **ERC-3009**: Authorized token transfers for secure, gasless payments
 - **X402 Protocol**: Payment protocol for cross-chain compatibility
-
-## Getting Started
-
-Ready to start accepting crypto payments? Check out our
-[Getting Started guide](./getting-started) to create your first payment link.

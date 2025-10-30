@@ -13,21 +13,10 @@ reliably detected, reconciled, and reported.
   networks
 - Subscribes to blockchain events (USDC Transfer, block confirmations)
 - Detects incoming and outgoing payments, including relayed ERC-3009 transfers
+- Provides transactions history with transaction details
 
 ## Reconciliation
 
 - Matches on-chain transactions to payment links and API records
 - Updates payment status (e.g., PAID, FAILED, EXPIRED) in real time
 - Handles edge cases (e.g., duplicate payments, payment amounts, late arrivals)
-
-## Alerting & Observability
-
-- Logs all detected transactions and status changes
-- Alerts on failed, delayed, or suspicious transactions
-- Provides metrics for payment success rates, latency, and error rates
-
-## Future Enhancements
-
-- Cross-chain monitoring
-- Automated dispute detection
-- Advanced analytics and reporting dashboards
