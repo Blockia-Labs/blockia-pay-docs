@@ -17,7 +17,6 @@ Generate a payment link through the dashboard or API with:
 - Amount and currency
 - Payment description
 - Merchant name (optional)
-- Expiration date (optional)
 
 ### 2. Share the Link
 
